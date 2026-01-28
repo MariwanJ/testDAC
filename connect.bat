@@ -1,0 +1,1 @@
+openocd -f %OPENOCD_PATH%\interface\stlink.cfg -f %OPENOCD_PATH%\target\stm32f7x.cfg 

@@ -1,0 +1,50 @@
+[package]
+name = "testDAC"
+version = "0.1.0"
+edition = "2024"
+
+
+#NUCLEO-F767ZI -->stm32f767zit
+
+[dependencies.stm32f7]
+version = "0.16.0"
+features = ["stm32f767", "rt"]
+
+[dependencies]
+cortex-m ="0.7.7"
+cortex-m-rt = "0.7.5"
+cortex-m-semihosting = "0.5"
+panic-halt = "1.0.0"
+embedded-hal = "1.0.0"    # Required for embedded systems
+embedded-hal-old = { package = "embedded-hal", version = "0.2.7" }
+
+critical-section = "1.2"  # 
+stm32f7xx-hal = { version = "^0.8.0", features = ["stm32f767"]}  # required to use HAL API
+fugit = "0.3.9"
+
+# Uncomment for the panic example.
+# panic-itm = "0.4.1"
+
+# Uncomment for the allocator example.
+# embedded-alloc = "0.6.0"
+
+# Uncomment for the device example.
+# Update `memory.x`, set target to `thumbv7em-none-eabihf` in `.cargo/config`,
+# and then use `cargo build --example device` to build it.
+# [dependencies.stm32f3]
+# features = ["stm32f303", "rt"]
+# version = "0.7.1"
+
+# this lets you use `cargo fix`!
+[[bin]]
+name= "testDAC"
+path = "src/main.rs"  # Adjust path if necessary
+
+[profile.release]
+codegen-units = 1
+lto = false          # ← IMPORTANT
+opt-level = "z"
+panic = "abort"
+
+[profile.dev]
+panic = "abort"  # Useful for embedded development
